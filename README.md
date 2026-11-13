@@ -36,3 +36,9 @@ O projeto será desenvolvido utilizando controle de versão, commits semânticos
 
 ## Status
 Em desenvolvimento.
+## Revisão Técnica
+
+- Revisão da estrutura do projeto.
+- Organização da documentação.
+- Verificação das dependências.
+- Análise da legibilidade do código.
