@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Fácil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <h2>Gestão Fácil</h2>
+
+            <nav>
+                <a href="#">🏠 Dashboard</a>
+                <a href="#">👥 Clientes</a>
+                <a href="#">📦 Produtos</a>
+                <a href="#">🛒 Vendas</a>
+                <a href="#">💰 Financeiro</a>
+                <a href="#">📊 Relatórios</a>
+                <a href="#">⚙️ Configurações</a>
+            </nav>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <h2>Painel de Gestão</h2>
+                <span>Bem-vindo ao Gestão Fácil!</span>
+            </header>
+
+            <section class="content">
+
+    <h1>Dashboard</h1>
+    <p>Visão geral do seu negócio.</p>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Clientes</h3>
+            <h2>150</h2>
+            <span>Total de clientes cadastrados</span>
+        </div>
+
+        <div class="card">
+            <h3>Produtos</h3>
+            <h2>85</h2>
+            <span>Produtos cadastrados</span>
+        </div>
+
+        <div class="card">
+            <h3>Vendas</h3>
+            <h2>R$ 12.500</h2>
+            <span>Vendas do mês</span>
+        </div>
+
+        <div class="card">
+            <h3>Financeiro</h3>
+            <h2>R$ 8.750</h2>
+            <span>Receita do mês</span>
+        </div>
+
+    </div>
+<!-- GRÁFICO DE VENDAS -->
+<div class="chart-container">
+
+    <h2>Vendas Mensais</h2>
+
+    <canvas id="graficoVendas"></canvas>
+
+</div>
+</section>
+
+        </main>
+
+    </div>
+<!-- Biblioteca Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('graficoVendas');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro'],
+        datasets: [{
+            label: 'Vendas (R$)',
+            data: [8500, 10200, 9800, 12500, 11000, 14500],
+            backgroundColor: '#1e3a5f',
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>
+</body>
+</html>

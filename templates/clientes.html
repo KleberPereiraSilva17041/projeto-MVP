@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clientes | Gestão Fácil</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        /* FORMULÁRIOS */
+        .form-clientes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .campo label {
+            font-weight: 600;
+            color: #1e3a5f;
+        }
+
+        .campo input {
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .campo-completo {
+            grid-column: span 2;
+        }
+
+        /* BOTÕES */
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .btn-cadastrar {
+            background: #1e3a5f;
+            color: white;
+        }
+
+        .btn-editar {
+            background: #e8a317;
+            color: white;
+        }
+
+        .btn-excluir {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-pesquisar {
+            background: #1e3a5f;
+            color: white;
+        }
+
+        .btn-limpar {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        /* PESQUISA */
+        .pesquisa-clientes {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .pesquisa-clientes input {
+            flex: 1;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        /* TABELA */
+        .tabela-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .tabela-clientes {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .tabela-clientes th {
+            background: #1e3a5f;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        .tabela-clientes td {
+            padding: 13px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tabela-clientes tr:hover {
+            background: #f3f6fa;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .form-excluir {
+            margin: 0;
+        }
+
+        .mensagem-vazia {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+        }
+
+        @media (max-width: 768px) {
+            .form-clientes {
+                grid-template-columns: 1fr;
+            }
+
+            .campo-completo {
+                grid-column: span 1;
+            }
+
+            .pesquisa-clientes {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+
+        <h2>Gestão Fácil</h2>
+
+        <nav>
+            <a href="/">🏠 Dashboard</a>
+            <a href="/clientes">👥 Clientes</a>
+            <a href="#">📦 Produtos</a>
+            <a href="#">🛒 Vendas</a>
+            <a href="#">💰 Financeiro</a>
+            <a href="#">📊 Relatórios</a>
+            <a href="#">⚙️ Configurações</a>
+        </nav>
+
+    </aside>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <h2>Gerenciamento de Clientes</h2>
+
+            <span>Gestão Fácil</span>
+
+        </header>
+
+
+        <section class="content">
+
+            <h1>Clientes</h1>
+
+            <p>Cadastre e gerencie seus clientes.</p>
+
+
+            <!-- CADASTRO DE CLIENTES -->
+            <div class="card">
+
+                <h2>Novo Cliente</h2>
+
+                <form action="{{ url_for('novo_cliente') }}"
+                      method="POST"
+                      class="form-clientes">
+
+                    <div class="campo">
+                        <label>Nome completo *</label>
+
+                        <input
+                            type="text"
+                            name="nome"
+                            placeholder="Digite o nome completo"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="campo">
+                        <label>CPF / CNPJ</label>
+
+                        <input
+                            type="text"
+                            name="cpf"
+                            placeholder="Digite o CPF ou CNPJ"
+                        >
+                    </div>
+
+
+                    <div class="campo">
+                        <label>Telefone</label>
+
+                        <input
+                            type="text"
+                            name="telefone"
+                            placeholder="(00) 00000-0000"
+                        >
+                    </div>
+
+
+                    <div class="campo">
+                        <label>E-mail</label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="email@exemplo.com"
+                        >
+                    </div>
+
+
+                    <div class="campo campo-completo">
+                        <label>Endereço</label>
+
+                        <input
+                            type="text"
+                            name="endereco"
+                            placeholder="Digite o endereço completo"
+                        >
+                    </div>
+
+
+                    <div class="campo campo-completo">
+
+                        <button type="submit" class="btn btn-cadastrar">
+                            + Cadastrar Cliente
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- LISTAGEM DE CLIENTES -->
+            <div class="card">
+
+                <h2>Clientes cadastrados</h2>
+
+
+                <!-- PESQUISA -->
+                <form action="{{ url_for('clientes') }}"
+                      method="GET"
+                      class="pesquisa-clientes">
+
+                    <input
+                        type="text"
+                        name="busca"
+                        placeholder="Pesquisar por nome ou CPF/CNPJ..."
+                        value="{{ busca|default('') }}"
+                    >
+
+                    <button type="submit" class="btn btn-pesquisar">
+                        🔎 Pesquisar
+                    </button>
+
+                    <a href="{{ url_for('clientes') }}"
+                       class="btn btn-limpar">
+                        Limpar
+                    </a>
+
+                </form>
+
+
+                <!-- TABELA -->
+                <div class="tabela-container">
+
+                    <table class="tabela-clientes">
+
+                        <thead>
+
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF/CNPJ</th>
+                                <th>Telefone</th>
+                                <th>E-mail</th>
+                                <th>Ações</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for cliente in clientes %}
+
+                            <tr>
+
+                                <td>{{ cliente.nome }}</td>
+
+                                <td>{{ cliente.cpf_cnpj or '-' }}</td>
+
+                                <td>{{ cliente.telefone or '-' }}</td>
+
+                                <td>{{ cliente.email or '-' }}</td>
+
+
+                                <td>
+
+                                    <div class="acoes">
+
+                                        <!-- EDITAR -->
+                                        <a
+                                            href="{{ url_for('editar_cliente', id=cliente.id) }}"
+                                            class="btn btn-editar"
+                                        >
+                                            ✏️ Editar
+                                        </a>
+
+
+                                        <!-- EXCLUIR -->
+                                        <form
+                                            action="{{ url_for('excluir_cliente', id=cliente.id) }}"
+                                            method="POST"
+                                            class="form-excluir"
+                                            onsubmit="return confirm('Deseja realmente excluir este cliente?');"
+                                        >
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-excluir"
+                                            >
+                                                🗑️ Excluir
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            {% else %}
+
+                            <tr>
+
+                                <td colspan="5" class="mensagem-vazia">
+                                    Nenhum cliente cadastrado.
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente | Gestão Fácil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>Gestão Fácil</h2>
+
+        <nav>
+            <a href="/">🏠 Dashboard</a>
+            <a href="/clientes">👥 Clientes</a>
+            <a href="#">📦 Produtos</a>
+            <a href="#">🛒 Vendas</a>
+            <a href="#">💰 Financeiro</a>
+            <a href="#">📊 Relatórios</a>
+            <a href="#">⚙️ Configurações</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <h2>Editar Cliente</h2>
+            <span>Gestão Fácil</span>
+        </header>
+
+        <section class="content">
+
+            <h1>Editar Cliente</h1>
+            <p>Atualize as informações do cliente.</p>
+
+            <div class="card">
+
+                <form action="/clientes/editar/{{ cliente.id }}" method="POST">
+
+                    <label>Nome completo</label>
+                    <input type="text" name="nome"
+                           value="{{ cliente.nome }}" required>
+
+                    <label>CPF / CNPJ</label>
+                    <input type="text" name="cpf"
+                           value="{{ cliente.cpf_cnpj or '' }}">
+
+                    <label>Telefone</label>
+                    <input type="text" name="telefone"
+                           value="{{ cliente.telefone or '' }}">
+
+                    <label>E-mail</label>
+                    <input type="email" name="email"
+                           value="{{ cliente.email or '' }}">
+
+                    <label>Endereço</label>
+                    <input type="text" name="endereco"
+                           value="{{ cliente.endereco or '' }}">
+
+                    <br><br>
+
+                    <button type="submit">Salvar Alterações</button>
+
+                    <a href="/clientes">Cancelar</a>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>
