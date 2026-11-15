@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import os
 import sqlite3
 
 app = Flask(__name__)
@@ -9,7 +10,8 @@ app = Flask(__name__)
 # ==========================================
 
 def conectar_banco():
-    conexao = sqlite3.connect('database.db')
+    caminho_banco = os.environ.get('DATABASE_PATH', 'database.db')
+    conexao = sqlite3.connect(caminho_banco)
     conexao.row_factory = sqlite3.Row
     return conexao
 
