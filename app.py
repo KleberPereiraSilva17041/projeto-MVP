@@ -181,8 +181,7 @@ def excluir_cliente(id):
 # EXECUTAR SISTEMA
 # ==========================================
 
+criar_banco()
+
 if __name__ == "__main__":
-
-    criar_banco()
-
     app.run(debug=True)

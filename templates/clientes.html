@@ -167,6 +167,8 @@
 
         <h2>Gestão Fácil</h2>
 
+        {% include "_acessibilidade.html" %}
+
         <nav>
             <a href="/">🏠 Dashboard</a>
             <a href="/clientes">👥 Clientes</a>
@@ -402,6 +404,8 @@
     </main>
 
 </div>
+
+<script src="{{ url_for('static', filename='js/acessibilidade.js') }}"></script>
 
 </body>
 

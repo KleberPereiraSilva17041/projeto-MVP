@@ -3,6 +3,8 @@ import tempfile
 
 import pytest
 
+os.environ.setdefault("DATABASE_PATH", tempfile.mktemp(suffix=".db"))
+
 import app as app_module
 
 
